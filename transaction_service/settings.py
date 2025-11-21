@@ -80,6 +80,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'transaction_db',
+        "CLIENT": {
+            "host": "mongodb://db:27017",
+        },
     }
 }
 
