@@ -60,8 +60,6 @@ class TransactionSummaryView(APIView):
 
         if merchant_id:
             qs = qs.filter(merchant_id=merchant_id)
-        else:
-            qs = qs.filter(merchant_id__isnull=True) | qs.filter(merchant_id="")
 
         qs = qs.order_by("date")
 
