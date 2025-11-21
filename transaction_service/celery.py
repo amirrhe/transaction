@@ -1,9 +1,9 @@
 import os
 from celery import Celery
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "transaction_service.settings")
 
-app = Celery("zibal_task")
+app = Celery("transaction_service")
 
 app.config_from_object("django.conf:settings", namespace="CELERY")
 

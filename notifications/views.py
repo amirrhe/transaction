@@ -6,7 +6,6 @@ from rest_framework import status
 from notifications.models import Notification, NotificationLog
 from notifications.serializers import (
     NotificationCreateSerializer,
-    NotificationDetailSerializer,
 )
 from notifications.tasks import send_notification_task
 
