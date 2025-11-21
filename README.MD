@@ -165,8 +165,6 @@ docker compose exec web python manage.py rebuild_summaries --truncate
 ### Run tests
 
 ```bash
-docker compose exec web pytest
-# or
 docker compose exec web python manage.py test
 ```
 
