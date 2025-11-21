@@ -3,7 +3,7 @@ from transactions.views import TransactionSummaryView
 
 urlpatterns = [
     path(
-        "transactions/summary/",
+        "summary/",
         TransactionSummaryView.as_view(),
         name="transaction-summary",
     ),
