@@ -1,5 +1,6 @@
 from djongo import models
 
+
 class Transaction(models.Model):
     merchant_id = models.CharField(
         max_length=64,
@@ -31,10 +32,18 @@ class SummaryTransaction(models.Model):
     date = models.DateField()
 
     year = models.IntegerField()
-    week = models.IntegerField(null=True, blank=True) 
-    month = models.IntegerField(null=True, blank=True) 
+    week = models.IntegerField(null=True, blank=True)
+    month = models.IntegerField(null=True, blank=True)
 
-    total_amount = models.BigIntegerField()
+    merchant_id = models.CharField(
+        max_length=64,
+        db_column="merchantId",
+        null=True,
+        blank=True,
+    )
+
+    total_amount = models.BigIntegerField(default=0)
+    total_count = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
