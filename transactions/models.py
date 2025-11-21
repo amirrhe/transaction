@@ -1,14 +1,6 @@
-# transactions/models.py
-from djongo import models  # you already have djongo installed
-
+from djongo import models
 
 class Transaction(models.Model):
-    """
-    Read-only mapping to existing Mongo collection `transaction` in `transaction_db`.
-    We DON'T manage this collection with Django migrations.
-    We also DON'T try to override the Mongo `_id`.
-    """
-
     merchant_id = models.CharField(
         max_length=64,
         db_column="merchantId",
@@ -25,10 +17,6 @@ class Transaction(models.Model):
 
 
 class SummaryTransaction(models.Model):
-    """
-    Our own collection where we store precomputed daily/weekly/monthly summaries.
-    This one IS managed by Django (migrations).
-    """
 
     class Granularity(models.TextChoices):
         DAILY = "daily", "Daily"
