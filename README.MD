@@ -1,4 +1,4 @@
-# 📦 Transaction Service — Django + MongoDB + Celery
+# Transaction Service — Django + MongoDB + Celery
 
 A backend service built with **Django**, **Django REST Framework**, **MongoDB**, and **Celery**, designed to:
 
