@@ -22,17 +22,3 @@ class NotificationCreateSerializer(serializers.ModelSerializer):
             "channels",
         ]
 
-
-class NotificationDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Notification
-        fields = [
-            "id",
-            "user_id",
-            "title",
-            "body",
-            "channels",
-            "status",
-            "created_at",
-            "updated_at",
-        ]

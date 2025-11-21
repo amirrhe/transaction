@@ -1,13 +1,13 @@
-# notifications/views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from notifications.models import Notification, NotificationLog
-from notifications.serializers import (
-    NotificationCreateSerializer,
+from notifications.serializers import NotificationCreateSerializer
+from notifications.services import (
+    NotificationCreateInput,
+    create_notification_with_logs,
+    enqueue_notification,
 )
-from notifications.tasks import send_notification_task
 
 
 class NotificationSendAPIView(APIView):
@@ -29,28 +29,15 @@ class NotificationSendAPIView(APIView):
         serializer = NotificationCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        notification: Notification = Notification.objects.create(
-            user_id=serializer.validated_data.get("user_id"),
+        payload = NotificationCreateInput(
+            user_id=serializer.validated_data["user_id"],
             title=serializer.validated_data["title"],
             body=serializer.validated_data["body"],
             channels=serializer.validated_data["channels"],
-            status=Notification.Status.PENDING,
         )
 
-        channels = serializer.validated_data["channels"]
-        logs = []
-        for channel in channels:
-            logs.append(
-                NotificationLog(
-                    notification=notification,
-                    medium=channel,
-                    status=NotificationLog.Status.PENDING,
-                    attempts=0,
-                )
-            )
-        NotificationLog.objects.bulk_create(logs)
-
-        send_notification_task.delay(notification.id)
+        notification = create_notification_with_logs(payload)
+        enqueue_notification(notification)
 
         response_data = {
             "id": notification.id,
